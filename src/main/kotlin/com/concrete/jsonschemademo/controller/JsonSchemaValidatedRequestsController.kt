@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RestController
 class JsonSchemaValidatedRequestsController(
     val schemasConfig: SchemasConfig
 ) {
+
     @PostMapping("/jsonSchemaCustomerRegister")
     fun registerNewConsumer(
-        @RequestHeader("partnerName") partnerName: String = "partner1",
+        @RequestHeader("partnerName") partnerName: String?,
         @RequestBody newCustomer: String
     ): ResponseEntity<String> {
 
-        validateCustomer(partnerName, newCustomer)
+        validateCustomer(partnerName ?: "default", newCustomer)
 
         return ResponseEntity.ok("customer validated")
     }
