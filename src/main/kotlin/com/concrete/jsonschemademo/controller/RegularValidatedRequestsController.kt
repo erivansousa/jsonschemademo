@@ -28,6 +28,7 @@ class RegularValidatedRequestsController {
             name.let {
                 when {
                     it.isNullOrBlank() -> violations.add("name is null or blank")
+                    it.length < 3 -> violations.add("name must be at least 3 characters")
                     it.length > 20 -> violations.add("name must be less than 20 characters")
                     else -> println("name is valid")
                 }
@@ -62,7 +63,8 @@ class RegularValidatedRequestsController {
                 }
                 when {
                     phone.number.isNullOrBlank() -> violations.add("phone.number is null or blank")
-                    phone.number.length < 10 -> violations.add("phone.number must be 10+ characters long")
+                    phone.number.length < 10 -> violations.add("phone.number must be 10+ digits long")
+                    phone.number.length > 11 -> violations.add("phone.number must be a maximum of 11 digits long")
                     StringUtils.isNumeric(phone.number).not() -> violations.add("phone.number must contain only numbers")
                     else -> println("phone.number is valid")
                 }
